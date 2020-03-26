@@ -1,6 +1,7 @@
 import React from 'react'
 import {render, fireEvent, getByAltText} from '@testing-library/react'
 import Display from './Display'
+import '@testing-library/jest-dom/extend-expect'
 
 test('renders field editor', () => {
   // const { getByText, getInput } = render(<FieldEditor />);
