@@ -1,13 +1,12 @@
 import React from 'react'
-import styles from './styles'
 
 const style = {
   marginLeft: '50%',
 }
 
-class Display extends React.Component {
-  close(e) {
-    const target = e.target.parentElement
+class Display extends React.Component<{field: string}, {}> {
+  close(e: any) {
+    const target = e.currentTarget.parentElement
     target.remove()
   }
 

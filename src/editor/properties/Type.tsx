@@ -1,18 +1,24 @@
 import React from 'react'
-import styles from './styles'
 
 const style = {
   marginLeft: '50%',
 }
 
-class Type extends React.Component {
-  constructor(props) {
+interface TypeProps {
+  field: string
+  onClick: (name: string) => void
+}
+
+class Type extends React.Component<TypeProps, {}> {
+  constructor(
+    props: Readonly<{field: string; onClick: (name: string) => void}>,
+  ) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(e) {
-    const name = e.target.innerText
+  handleClick(e: any) {
+    const name = e.currentTarget.innerHTML
     this.props.onClick(name)
   }
 

@@ -22,8 +22,16 @@ const propertyStyle = {
 //hardcoded fields for now
 const fields = ['string', 'number', 'compound']
 
-class EditorContainer extends React.Component {
-  constructor(props) {
+class EditorContainer extends React.Component<
+  {},
+  {
+    name: string
+    message: string
+    fields: Array<JSX.Element>
+    properties: Array<JSX.Element>
+  }
+> {
+  constructor(props: Readonly<{}>) {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.onClick = this.onClick.bind(this)
@@ -36,14 +44,14 @@ class EditorContainer extends React.Component {
   }
 
   placeProperties() {
-    let x = []
+    let x: Array<JSX.Element> = []
     fields.forEach((field, id) => {
       x.push(<Type key={id} field={field} onClick={this.onClick} />)
     })
     return x
   }
 
-  onClick(fieldName) {
+  onClick(fieldName: string) {
     let currentFields = this.state.fields
     const newField = (
       <Display key={currentFields.length + 1} field={fieldName} />
@@ -55,7 +63,7 @@ class EditorContainer extends React.Component {
     })
   }
 
-  onChange(name) {
+  onChange(name: string) {
     this.setState({message: name})
   }
 
