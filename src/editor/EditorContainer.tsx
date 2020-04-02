@@ -33,8 +33,6 @@ class EditorContainer extends React.Component<
 > {
   constructor(props: Readonly<{}>) {
     super(props)
-    this.onChange = this.onChange.bind(this)
-    this.onClick = this.onClick.bind(this)
     this.state = {
       name: '',
       message: 'my data',
@@ -43,16 +41,16 @@ class EditorContainer extends React.Component<
     }
   }
 
-  placeProperties() {
-    let x: Array<JSX.Element> = []
+  placeProperties(): Array<JSX.Element> {
+    const x: Array<JSX.Element> = []
     fields.forEach((field, id) => {
       x.push(<Type key={id} field={field} onClick={this.onClick} />)
     })
     return x
   }
 
-  onClick(fieldName: string) {
-    let currentFields = this.state.fields
+  onClick = (fieldName: string): void => {
+    const currentFields = this.state.fields
     const newField = (
       <Display key={currentFields.length + 1} field={fieldName} />
     )
@@ -63,15 +61,14 @@ class EditorContainer extends React.Component<
     })
   }
 
-  onChange(name: string) {
+  onChange = (name: string): void => {
     this.setState({message: name})
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div>
         <div style={fieldStyle}>{this.state.fields}</div>
-
         <div style={propertyStyle}>{this.state.properties}</div>
       </div>
     )

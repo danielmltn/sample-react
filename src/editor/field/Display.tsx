@@ -5,12 +5,12 @@ const style = {
 }
 
 class Display extends React.Component<{field: string}, {}> {
-  close(e: any) {
+  close(e: any): void {
     const target = e.currentTarget.parentElement
     target.remove()
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div style={style}>
         {this.props.field}

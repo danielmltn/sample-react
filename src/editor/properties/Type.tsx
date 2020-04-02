@@ -1,4 +1,5 @@
 import React from 'react'
+import Attribute from './Attributes'
 
 const style = {
   marginLeft: '50%',
@@ -9,26 +10,18 @@ interface TypeProps {
   onClick: (name: string) => void
 }
 
-class Type extends React.Component<TypeProps, {}> {
-  constructor(
-    props: Readonly<{field: string; onClick: (name: string) => void}>,
-  ) {
-    super(props)
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick(e: any) {
+const Type = (props: TypeProps): JSX.Element => {
+  const handleClick = (e: any): void => {
     const name = e.currentTarget.innerHTML
-    this.props.onClick(name)
+    props.onClick(name)
   }
 
-  render() {
-    return (
-      <div style={style}>
-        <button onClick={this.handleClick}>{this.props.field}</button>
-      </div>
-    )
-  }
+  return (
+    <div style={style}>
+      <button onClick={handleClick}>{props.field}</button>
+      <Attribute />
+    </div>
+  )
 }
 
 export default Type
