@@ -4,22 +4,21 @@ const style = {
   marginLeft: '50%',
 }
 
-class Display extends React.Component<{field: string}, {}> {
-  close(e: any): void {
-    const target = e.currentTarget.parentElement
-    target.remove()
-  }
+interface DisplayProps {
+  listId: string
+  field: string
+  onClose: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+}
 
-  render(): JSX.Element {
-    return (
-      <div style={style}>
-        {this.props.field}
-        <button aria-label="close" onClick={this.close}>
-          &times;
-        </button>
-      </div>
-    )
-  }
+const Display = (props: DisplayProps): JSX.Element => {
+  return (
+    <div data-list-id={props.listId} style={style}>
+      {props.field}
+      <button aria-label="close" onClick={props.onClose}>
+        &times;
+      </button>
+    </div>
+  )
 }
 
 export default Display

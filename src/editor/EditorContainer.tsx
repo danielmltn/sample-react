@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Display from './field/Display'
 import Type from './properties/Type'
 import styles from './styles'
+import {Guid} from 'guid-typescript'
 
 const fieldStyle = {
   width: styles.width,
@@ -19,60 +20,47 @@ const propertyStyle = {
   float: styles.float,
 }
 
-//hardcoded fields for now
-const fields = ['string', 'number', 'compound']
+interface DisplayField {
+  id: string
+  name: string
+}
 
-class EditorContainer extends React.Component<
-  {},
-  {
-    name: string
-    message: string
-    fields: Array<JSX.Element>
-    properties: Array<JSX.Element>
-  }
-> {
-  constructor(props: Readonly<{}>) {
-    super(props)
-    this.state = {
-      name: '',
-      message: 'my data',
-      fields: [],
-      properties: this.placeProperties(),
-    }
-  }
+const EditorContainer = (): JSX.Element => {
+  const [displayFields, setDisplayFields] = useState<DisplayField[]>([])
+  const [properties] = useState(['string', 'number', 'compound'])
 
-  placeProperties(): Array<JSX.Element> {
-    const x: Array<JSX.Element> = []
-    fields.forEach((field, id) => {
-      x.push(<Type key={id} field={field} onClick={this.onClick} />)
-    })
-    return x
-  }
-
-  onClick = (fieldName: string): void => {
-    const currentFields = this.state.fields
-    const newField = (
-      <Display key={currentFields.length + 1} field={fieldName} />
+  const onClose = (e: any): void => {
+    const elementToRemove = e.currentTarget.parentElement.getAttribute(
+      'data-list-id',
     )
-
-    currentFields.push(newField)
-    this.setState({
-      fields: currentFields,
-    })
+    setDisplayFields([...displayFields.filter(f => f.id !== elementToRemove)])
+  }
+  const onClick = (fieldName: string): void => {
+    setDisplayFields(displayFields => [
+      ...displayFields,
+      {id: Guid.create().toString(), name: fieldName},
+    ])
   }
 
-  onChange = (name: string): void => {
-    this.setState({message: name})
-  }
-
-  render(): JSX.Element {
-    return (
-      <div>
-        <div style={fieldStyle}>{this.state.fields}</div>
-        <div style={propertyStyle}>{this.state.properties}</div>
+  return (
+    <div>
+      <div style={fieldStyle}>
+        {displayFields.map(field => (
+          <Display
+            listId={field.id}
+            key={field.id}
+            field={field.name}
+            onClose={onClose}
+          />
+        ))}
       </div>
-    )
-  }
+      <div style={propertyStyle}>
+        {properties.map((field, id) => (
+          <Type key={id} field={field} onClick={onClick} />
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default EditorContainer
