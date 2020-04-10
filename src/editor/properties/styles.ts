@@ -1,4 +1,6 @@
-const styles = {
+import CSS from 'csstype'
+
+const styles: CSS.Properties = {
   backgroundColor: '#f9c69a',
   height: '100%',
   position: 'relative',
