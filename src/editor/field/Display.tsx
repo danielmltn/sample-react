@@ -1,18 +1,26 @@
 import React from 'react'
 
-const style = {
-  marginLeft: '50%',
+const outerContainerStyle = {
+  border: '1px solid blue',
 }
 
 interface DisplayProps {
+  dataPosition: number
   listId: string
   field: string
   onClose: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onDragStart: (e: any) => void
 }
 
 const Display = (props: DisplayProps): JSX.Element => {
   return (
-    <div data-list-id={props.listId} style={style}>
+    <div
+      draggable="true"
+      data-position={props.dataPosition}
+      onDragStart={props.onDragStart}
+      data-list-id={props.listId}
+      style={outerContainerStyle}
+    >
       {props.field}
       <button aria-label="close" onClick={props.onClose}>
         &times;

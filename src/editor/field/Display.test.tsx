@@ -11,7 +11,13 @@ describe('Display', () => {
 
   test('renders the display inner text', () => {
     const {getByText} = render(
-      <Display listId="1" field="test field value" onClose={emptyFunc} />,
+      <Display
+        dataPosition={1}
+        listId="1"
+        field="test field value"
+        onClose={emptyFunc}
+        onDragStart={emptyFunc}
+      />,
     )
     const divDisplay = getByText(/test field value/i)
     expect(divDisplay.innerHTML).toBe(
@@ -21,9 +27,18 @@ describe('Display', () => {
 })
 
 describe('firing the remove button', () => {
+  const emptyFunc = (): void => {
+    //   test
+  }
   test('removes the button on click of x', () => {
     const {getByLabelText, unmount} = render(
-      <Display listId="1" field="number" onClose={(): boolean => unmount()} />,
+      <Display
+        dataPosition={1}
+        listId="1"
+        field="number"
+        onClose={(): boolean => unmount()}
+        onDragStart={emptyFunc}
+      />,
     )
     const closeButton = getByLabelText('close')
     expect(closeButton).toBeInTheDocument()
