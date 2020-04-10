@@ -9,26 +9,22 @@ interface TypeProps {
   onClick: (name: string) => void
 }
 
-class Type extends React.Component<TypeProps, {}> {
-  constructor(
-    props: Readonly<{field: string; onClick: (name: string) => void}>,
-  ) {
-    super(props)
-    this.handleClick = this.handleClick.bind(this)
+const Type = (props: TypeProps): JSX.Element => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    name: string,
+  ): void => {
+    props.onClick(name)
   }
 
-  handleClick(e: any) {
-    const name = e.currentTarget.innerHTML
-    this.props.onClick(name)
-  }
-
-  render() {
-    return (
-      <div style={style}>
-        <button onClick={this.handleClick}>{this.props.field}</button>
+  return (
+    <div style={style}>
+      <label htmlFor={props.field}>{props.field}</label>
+      <div id={props.field}>
+        <button onClick={(e): void => handleClick(e, props.field)}>Add</button>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default Type
